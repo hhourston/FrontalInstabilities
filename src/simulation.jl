@@ -16,7 +16,8 @@ Ri = 0.5
 # Stratification
 N² = Ri * S^2
 
-# Dimensions typical of submesoscale, but keep aspect ratio close to unity
+# Dimensions typical of submesoscale, but keep aspect ratio close 
+# to unity
 L = 1_000
 H = 100
 Nx = 512
@@ -27,14 +28,30 @@ Nz = 64
 T = 120 / f
 
 # Exercise 1: create a grid
-grid = 
+grid = RectilinearGrid(CPU();
+    topology=(Periodic, Flat, Bounded),
+    size=(Nx, Nz),
+    x=(0, L),
+    z=(0, H)
+)
 @info grid
 
 # Exercise 2: define continuous forcing functions
-@inline v_forcing_func(...) = 
-@inline b_forcing_func(...) = 
+M² = f * S  # Inferred from bottom of slide deck 2
+@inline v_forcing_func(x, z, t, u, w, p) = -p.M²/p.f * w 
+@inline b_forcing_func(x, z, t, u, w, p) = -p.N² * w - p.M² * u
 
-forcing = 
+u_forcing = Forcing(
+    v_forcing_func, 
+    parameters=(M²=M², f=f),
+    field_dependencies=(:u, :w)
+)
+b_forcing = Forcing(
+    b_forcing_func, 
+    parameters=(M²=M², N²=N²),
+    field_dependencies=(:u, :w)
+)
+forcing = (u=u_forcing, b=b_forcing)
 
 # Other model arguments
 advection = WENO(; order=5)
@@ -58,7 +75,7 @@ model = NonhydrostaticModel(;
 @inline u₀(x, z) = 1e-8 * randn()
 
 # Exercise 3: initial tracer profile
-@inline c₀(x, z) = 
+@inline c₀(x, z) = z   # linear profile
 
 set!(model; c=c₀, u=u₀)
 
@@ -83,6 +100,7 @@ simulation.callbacks[:wizard] = Callback(wizard, IterationInterval(10))
 u, v, w = model.velocities
 b, c = model.tracers
 
+# Exercise 3.4?
 # Derived fields
 # Total buoyancy gradient
 N²_tot = Field(∂z(b) + N²)
