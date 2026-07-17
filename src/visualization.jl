@@ -4,13 +4,13 @@ visualization.jl
 =#
 using Oceananigans, GLMakie, Printf
 
-filename = "Ri09.jld2"
+filename = "Ri05.jld2"  # "Ri09.jld2"
 
 # Read simulation data
 fds = FieldDataset(filename; backend=OnDisk())
 u_fts = fds.u
 b_fts = fds.b
-c_fts = 
+c_fts = fds.c 
 p = fds.metadata["parameters"]
 
 # Parameters
@@ -26,8 +26,8 @@ z_u = znodes(u_fts)
 x_b = xnodes(b_fts)
 z_b = znodes(b_fts)
 
-x_c = 
-z_c =
+x_c = xnodes(c_fts)
+z_c = znodes(c_fts)
 
 times = u_fts.times
 
@@ -38,7 +38,8 @@ n = length(times)
 b₀ = [p.N² * z + p.f * p.S * x for x in x_b, z in z_b]
 u = interior(u_fts[n], :, 1, :)
 b = interior(b_fts[n], :, 1, :) .+ b₀
-c = 
+# c₀ = [z for z in z_c] 
+c = interior(c_fts[n], :, 1, :) #.+ c₀ 
 
 # Time in hours
 time_string = let 
@@ -60,20 +61,30 @@ ax_u = Axis(fig[2, 1];
     title = L"u / \text{m}\,\text{s}^{-1}",
     xlabel = L"x / \text{m}",
     ylabel = L"z / \text{m}",
-    limits = (0, L, -H, 0)
+    limits = (0, L, 0, H),  # -H, 0)
+    yreversed=true
 )
 
 ht_u = heatmap!(ax_u, x_u, z_u, u;
-    colormap = :balance,
-    colorrange = (-5e-3, 5e-3)
+    colormap = :balance,  # ,
+    colorrange = (-0.03, 0.03)
 )
 
 Colorbar(fig[2, 2], ht_u)
 
 # Exercise 1: plot of the passive tracer
-ax_c = 
+ax_c = Axis(fig[3, 1]; 
+    title = L"c",
+    xlabel = L"x / \text{m}",
+    ylabel = L"z / \text{m}",
+    limits = (0, L, 0, H),
+    yreversed=true
+)
 
-ht_c = 
+ht_c = heatmap!(ax_c, x_c, z_c, c;
+    colormap = :deep  # ,
+    # colorrange = (0, 1)
+)
 
 Colorbar(fig[3, 2], ht_c)
 
@@ -88,6 +99,27 @@ contour!(ax_c, x_b, z_b, b;
     levels = range(-2e-5, 2e-5, 20)
 )
 
+# Save figure object
+save("exercise4-1.png", fig)
+
 # Exercise 2: create video
 
-fig
+fig = Figure(;
+    size = (1200, 500),
+    fontsize = 16
+)
+
+# Index
+n = Observable(1)
+
+# Get field interior
+u = @lift interior(u_fts, :, 1, :, $n)
+
+# Save figure object
+N = length(u_fts.times)
+record(fig, "../videos/exercise4-2.mp4", 1:N) do i
+    n[] = i 
+    print("$i / $N\r")
+end
+
+
