@@ -61,5 +61,5 @@ labels = map([0.3, 0.5, 0.7, 0.9]) do Ri
 end
 Legend(fig[1, 4], lns, labels, L"\text{Ri}")
 
-save("images/post-processed.png", fig; px_per_unit=2)
+save("post-processed_jul22.png", fig; px_per_unit=2)
 fig
