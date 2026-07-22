@@ -11,11 +11,11 @@ For topic 3-simulation, I set the tracer initial condition to
 
 I assumed that `M² = f * S` from the bottom of slide deck 2:
 ```math
-```
 q = fN^2\left (1 - \frac{M^4}{N^2f^2}\right ) = fN^2\left (1 - \frac{S^2}{N^2}\right ) \\
 \implies \frac{M^4}{N^2f^2} = \frac{S^2}{N^2} \\
 M^4 = f^2 S^2 \\
 M^2 = fS
+```
 
 ### 4-visualization comments
 The single timestamp figure was saved to */src/exercise4.1.png*.
