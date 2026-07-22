@@ -12,7 +12,8 @@ f = 1e-4
 # Shear
 S = f
 # Richardson number
-Ri = 0.5
+Ri = length(ARGS) == 0 ? 0.5 : parse(Float64, ARGS[1])
+print("Using Ri=", Ri)
 # Stratification
 N² = Ri * S^2
 
@@ -41,7 +42,7 @@ M² = f * S  # Inferred from bottom of slide deck 2
 @inline v_forcing_func(x, z, t, u, w, p) = -p.M²/p.f * w 
 @inline b_forcing_func(x, z, t, u, w, p) = -p.N² * w - p.M² * u
 
-u_forcing = Forcing(
+v_forcing = Forcing(
     v_forcing_func, 
     parameters=(M²=M², f=f),
     field_dependencies=(:u, :w)
@@ -51,7 +52,7 @@ b_forcing = Forcing(
     parameters=(M²=M², N²=N²),
     field_dependencies=(:u, :w)
 )
-forcing = (u=u_forcing, b=b_forcing)
+forcing = (v=v_forcing, b=b_forcing)
 
 # Other model arguments
 advection = WENO(; order=5)
@@ -113,8 +114,9 @@ function init_jld2!(file, model)
 end
 
 # Configure output writer
+
 simulation.output_writers[:output] = JLD2Writer(model, (; u, v, w, b, c, N²_tot);
-    filename = "Ri05.jld2",
+    filename = join(["Ri", string(Ri)[1:2:3]], ""),  # "Ri05.jld2",
     overwrite_existing = true,
     init=init_jld2!,
     schedule = TimeInterval(20Δt)
