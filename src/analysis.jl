@@ -23,7 +23,7 @@ times = fds.u.times
 KE = Field(Average((u^2 + v^2 + w^2) / 2))
 
 # Balanced Richardson number
-Rib = 
+Rib = Field(Average(N²_tot / p.S^2))
 
 outputs = (; KE, Rib)
 
