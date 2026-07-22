@@ -102,24 +102,4 @@ contour!(ax_c, x_b, z_b, b;
 # Save figure object
 save("exercise4-1.png", fig)
 
-# Exercise 2: create video
-
-fig = Figure(;
-    size = (1200, 500),
-    fontsize = 16
-)
-
-# Index
-n = Observable(1)
-
-# Get field interior
-u = @lift interior(u_fts, :, 1, :, $n)
-
-# Save figure object
-N = length(u_fts.times)
-record(fig, "../videos/exercise4-2.mp4", 1:N) do i
-    n[] = i 
-    print("$i / $N\r")
-end
-
 
