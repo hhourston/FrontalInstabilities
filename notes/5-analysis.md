@@ -28,7 +28,7 @@ where $`g(x, z)`$ is some sinusoidal function that describes the shape of the mo
 
 We will investigate how the growth rate of the instability depends on the initial Richardson number, and how the Richardson number changes over time
 
-> ### Exercise 2
+> ### Exercise 1
 > Show that the balanced Richardson number, defined by
 > 
 > $$\text{Ri}_b(t) = f^2\frac{\left \langle \frac{\partial b_\text{tot}}{\partial z}\right\rangle}{ \left\langle \frac{\partial b_\text{tot}}{\partial x}\right\rangle^2}.$$
@@ -148,7 +148,7 @@ end
 Much of the code can be reused with just different entries in `outputs`. 
 
 > ### Exercise 3
-> Add an operation to `src/analysis.jl` to produce the balanced Richardson number `Rib` as defined in exercise 2. Run with the input `RiXX.jld2` as an argument to produce `RiXX-pp.jld2` for each simulation. This won't take long.
+> Add an operation to `src/analysis.jl` to produce the balanced Richardson number `Rib` as defined in exercise 2. Run with the input `RiXX.jld2` as an argument to produce `RiXX-pp.jld2` for each simulation. The script should complete quickly.
 
 Running `post-processed.jl` should produce the following figure of the average kinetic energy, growth rate and bulk Richardson number.
 
