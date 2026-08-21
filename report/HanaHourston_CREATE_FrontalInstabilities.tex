@@ -1,9 +1,12 @@
 \documentclass[12 pt]{article}
-\usepackage{amsmath}
-\usepackage{graphicx}
+\usepackage{amsmath}            % for math equations
+\usepackage{graphicx}           % for figures
 \usepackage{times}              % Improve font over the default
+\usepackage{listings}           % for code snippets
 \usepackage[letterpaper, margin=1in]{geometry}
-  
+
+\numberwithin{equation}{section} % number equations 1.1, 1.2, ...
+\setlength{\parindent}{0pt}
 \linespread{1}
 
 \title{NSERC CREATE QCS: Frontal Instabilities Module Report}
@@ -16,8 +19,227 @@
 
 \section{Basics}
 
+\subsection{Exercise}
+Show that, for a fluid with $\frac{\text{D}\vec{u}}{\text{D}t} = 0$, the thermal wind relations are satisfied
+
+\begin{equation}
+  \label{eq:thermal-wind}
+  f\frac{\partial u}{\partial z} = -\frac{\partial b}{\partial y}, \quad f\frac{\partial v}{\partial z} = \frac{\partial b}{\partial x}
+\end{equation}
+
+\textbf{Solution:} \\
+Start from the Boussinesq equation,
+\begin{align}
+  \label{eq:boussinesq}
+  f \hat{z} \times \vec{u} &= -\nabla \phi + b\hat{z}
+\end{align}
+
+Expand the cross-product in \ref{eq:boussinesq}.
+
+\begin{align*}
+  f \hat{z} \times \vec{u} &= (0-fv)\hat{x} - (0-fu)\hat{y} + (0-0)\hat{z} \\
+  &= -fv\hat{x} + fu\hat{y}
+\end{align*}
+
+The components are then,
+\begin{align*}
+  \hat{x}&: fv = \frac{\partial \phi}{\partial x} \\
+  \hat{y}&: fu = \frac{\partial \phi}{\partial y} \\
+  \hat{z}&: 0 = -\frac{\partial \phi}{\partial z} + b
+\end{align*}
+
+\begin{align*}
+  \implies b &= \frac{\partial \phi}{\partial z} \\
+  \frac{\partial b}{\partial x} &= \frac{\partial^2 \phi}{\partial x \partial z} \\
+  \frac{\partial}{\partial z}(fv) &= \frac{\partial^2 \phi}{\partial x \partial z} \\
+  f\frac{\partial v}{\partial z} &= \frac{\partial^2 \phi}{\partial x \partial z} = \frac{\partial b}{\partial x}
+\end{align*}
+
+as required, and,
+
+\begin{align*}
+  \frac{\partial}{\partial y}(b) &= \frac{\partial^2 \phi}{\partial y \partial z} \\
+  \frac{\partial}{\partial z}(fu) &= -\frac{\partial^2 \phi}{\partial y \partial z} \\
+  f \frac{\partial u}{\partial z} &= -\frac{\partial b}{\partial y}
+\end{align*}
+
+as required.
+
 
 \section{Fronts}
+
+\subsection{Exercise}
+
+Verify that the fields below are indeed in thermal wind balance.
+
+\begin{align} 
+  b_0 &= N^2z + M^2 x  \label{eq:ideal-front-b} \\
+  v_0 &= \zeta x +Sz = \zeta x + \frac{M^2}{f} z \label{eq:ideal-front-v} 
+\end{align} \\
+
+\textbf{Solution:} \\
+From \ref{eq:ideal-front-b},
+
+\begin{align*}
+  \frac{\partial}{\partial x}(b_0) &= \frac{\partial}{\partial x}(N^2 z + M^2 x) \\
+  \frac{\partial b_0}{\partial x} &= M^2
+\end{align*}
+
+From \ref{eq:ideal-front-v},
+
+\begin{align*}
+  \frac{\partial}{\partial z} v_0 &= \frac{\partial}{\partial z}\left( \zeta x + \frac{M^2}{f}z \right) \\
+  \frac{\partial v_0}{\partial z} &= \frac{M^2}{f} \\
+  f\frac{\partial v_0}{\partial z} &= M^2 = \frac{\partial b_0}{\partial x} &= M^2
+\end{align*}
+
+as required. \\
+
+Back to \ref{eq:ideal-front-b},
+
+\begin{align*}
+  \frac{\partial}{\partial y}(b_0) &= \frac{\partial}{\partial y}(N^2 z + M^2 x) = 0 \\
+\end{align*}
+
+Since there is no cross-front velocity (the $u_0$ component), then $\frac{\partial u}{\partial z} = 0$.
+
+So $\frac{\partial u}{\partial z} = -\frac{\partial b_0}{\partial y}$ as required.
+
+
+\subsection{Exercise}
+Flow around an ideal front, with forcing terms, is described by the equations
+
+\begin{align}
+  \frac{\text{D}\vec u}{\text{D}t} + f \hat z \times \vec u = -\nabla \phi + b\hat z - \left (\zeta u + \frac{M^2}{f}w\right )\hat y \label{eq:ideal-u} \\
+  \frac{\text{D}b}{\text{D}t} = -N^2 w - M^2 u  \label{eq:ideal-b} \\
+  \nabla \cdot \vec u = 0  \label{eq:continuity}
+\end{align}
+
+... we now turn to motions that evolve on time scales much longer than $N^{-1}$. \\
+
+\textbf{A.} Using the equation for $\text{D}w/\text{D}t$, show that, under the condition highlighted above, one can neglect the vertical acceleration of perburbations. What is this approximation called? \\
+
+\textbf{Solution:} \\
+In this module, we assume that there are no non-conservative sources of heat, so buoyancy is conserved: $\text{D}b/\text{D}t = 0$.
+
+Then equation \ref{eq:ideal-b} becomes,
+
+\begin{align*}
+  \text{D}b/\text{D}t = 0 &= -N^2 w - M^2 u \\
+  N^2 w &= -M^2 u \\
+  w &= -\left(\frac{1}{N^2} \right) M^2 u
+\end{align*}
+
+Assuming $1/N \rightarrow 0$, then $w \approx 0$ and $\text{D}w/\text{D}t \approx 0$. Thus we can neglect the vertical acceleration of perturbations.
+
+The $\hat{z}$ component of equation \ref{eq:ideal-u} is
+
+\begin{align*}
+  \text{D}w/\text{D}t &= -\frac{\partial \phi}{\partial z} + b \\
+  \implies \frac{\partial \phi}{\partial z} &= b
+\end{align*}
+
+This approximation is the hydrostatic approximation. \\
+
+
+\textbf{B.} Using this approximation, show that equation set $`(2.2)`$ may be written, keeping only linear terms and ignoring $y$ variation, as
+
+\begin{equation}
+\frac{\partial u}{\partial t} - fv = -\frac{\partial \phi}{\partial x}, \quad \frac{\partial v}{\partial t} + fu = -\zeta u-\frac{M^2}{f}w \\
+\text{and} \quad \frac{\partial b}{\partial t}= -M^2 u-N^2w,
+\end{equation}
+
+with ${\partial \phi}/{\partial z} = b$ and $\nabla \cdot \vec u = 0$. \\
+
+\textbf{Solution:} \\
+The $\hat{x}$ and $\hat{y}$ components of equation \ref{eq:ideal-u} are
+
+\begin{align*}
+  \hat{x}: \text{D}u/\text{D}t + (-fv) = -\frac{\partial \phi}{\partial x} \\
+  \hat{y}: \text{D}v/\text{D}t + (fu) &= -\frac{\partial \phi}{\partial y} - \left( \zeta u + \frac{M^2}{f} w \right)
+\end{align*}
+
+Keeping only linear terms means that $\text{D}/\text{D}t \rightarrow \partial/\partial t$. Ignoring $y$ variation means that $\partial \phi/\partial y = 0$. It follows that, 
+
+\begin{align}
+  \hat{x}: \partial u/\partial t + (-fv) = -\frac{\partial \phi}{\partial x}  \label{eq:u-instable} \\
+  \hat{y}: \partial v/\partial t + (fu) &= - \left( \zeta u + \frac{M^2}{f} w \right)  \label{eq:v-instable} \\
+  \frac{\partial b}{\partial t} &= -M^2 u - N^2 w  \label{eq:b-instable}
+\end{align}
+
+as required. \\
+
+
+\textbf{C.} Show that a plane-wave mode $(u, v, w, b) = (\tilde u, \tilde v, \tilde w, \tilde b)\exp[\text i(kx + mz - \omega t)]$ evolving in an infinitely long domain follows the dispersion relationship
+
+\begin{equation}
+  \omega^2 = f(f + \zeta) + \frac{1}{m^2}\left (N^2k^2 - 2M^2km\right ) \qquad
+\end{equation}
+
+Hint: construct a differential equation for $u$ only, then use the plane wave assumption. \\
+
+\textbf{Solution:} \\
+The starting equations are,
+\begin{align}
+  \frac{\partial u}{\partial t} - fv &= -\frac{\partial \phi}{\partial x} \label{eq:a} \\
+  \frac{\partial v}{\partial t} + fu &= -\zeta u - \frac{M^2}{f}w \label{eq:b} \\
+  \frac{\partial b}{\partial t} &= -M^2 u - N^2 w \label{eq:c} \\
+  \frac{\partial \phi}{\partial z} &= b \label{eq:d} \\
+  \nabla \dot \vec{u} &= 0 \label{eq:e}
+\end{align}
+
+To get a DE in terms of $u$ only, start by transforming $\ref{eq:d}$ to input into $\ref{eq:c}$.
+
+\begin{align}
+  \frac{\partial^2 \phi}{\partial z \partial t} &= \frac{\partial b}{\partial t} = -M^2 u - N^2 w  \nonumber\\
+  \frac{\partial^3 \phi}{\partial x \partial z \partial t} &= -M^2 \frac{\partial u}{\partial x} - N^2 \frac{\partial w}{\partial x} \quad \text{combine with \ref{eq:a}}  \nonumber\\
+  \frac{\partial^3 u}{\partial z \partial t^2} - f\frac{\partial^2 v}{\partial z \partial t} &= -\frac{\partial^3 \phi}{\partial x \partial z \partial t}  \nonumber\\
+  &= -\left(-M^2 \frac{\partial u}{\partial x} - N^2 \frac{\partial w}{\partial x} \right)  \nonumber \\
+  &= M^2 \frac{\partial u}{\partial x} + N^2 \frac{\partial w}{\partial x}  \label{eq:star1}
+\end{align}
+
+Now take $(\partial/\partial z)$ of equation \ref{eq:b}.
+
+\begin{align*}
+  \frac{\partial^2 v}{\partial z \partial t} + f\frac{\partial u}{\partial z} &= -\zeta \frac{\partial u}{\partial z} - \frac{M^2}{f}\frac{\partial w}{\partial z} \\
+  \frac{\partial^2 v}{\partial z \partial t} &= -(f + \zeta) \frac{\partial u}{\partial z} - \frac{M^2}{f}\frac{\partial w}{\partial z} \\
+\end{align*}
+
+Now combine this with equation \ref{eq:star1} and simplify.
+
+\begin{align}
+  \frac{\partial^3 u}{\partial z \partial t^2} - f\left[ -(f + \zeta) \frac{\partial u}{\partial z} - \frac{M^2}{f}\frac{\partial w}{\partial z} \right] &= M^2 \frac{\partial u}{\partial x} + N^2 \frac{\partial w}{\partial x} \nonumber \\
+  \frac{\partial^3 u}{\partial z \partial t^2} + f(f + \zeta) \frac{\partial u}{\partial z} + M^2\frac{\partial w}{\partial z} &= M^2 \frac{\partial u}{\partial x} + N^2 \frac{\partial w}{\partial x} \label{eq:star3} \\
+\end{align}
+
+Since we are ignoring $y$ variation, equation \ref{eq:e} becomes
+\begin{align*}
+\frac{\partial w}{\partial z} = -\frac{\partial u}{\partial x}
+\end{align*}
+
+This can be substituted into equation \ref{eq:star3} after taking $\partial/\partial z$.
+
+\begin{align*}
+  \frac{\partial^4 u}{\partial z^2 \partial t^2} + f(f + \zeta) \frac{\partial^2 u}{\partial z^2} + M^2\frac{\partial^2 w}{\partial z^2} &= M^2 \frac{\partial^2 u}{\partial x \partial z} + N^2 \frac{\partial^2 w}{\partial x \partial z} \\
+  \frac{\partial^4 u}{\partial z^2 \partial t^2} + f(f + \zeta) \frac{\partial^2 u}{\partial z^2} - M^2\frac{\partial^2 u}{\partial x \partial z} &= M^2 \frac{\partial^2 u}{\partial x \partial z} - N^2 \frac{\partial^2 u}{\partial x^2} \\
+  \frac{\partial^4 u}{\partial z^2 \partial t^2} + f(f + \zeta) \frac{\partial^2 u}{\partial z^2} - 2M^2\frac{\partial^2 u}{\partial x \partial z} + N^2 \frac{\partial^2 u}{\partial x^2} = 0
+\end{align*}
+
+To find the dispersion relation, assume a solution of the form, $u=\tilde{u}\text{exp}[i(kx + mz - \omega t)]$. Then,
+
+\begin{equation*}
+  \frac{\partial u}{\partial x} = iku, \quad \frac{\partial^2 u}{\partial x^2} = -k^2u \\
+  \frac{\partial u}{\partial z} = imu, \quad \frac{\partial^2 u}{\partial z^2} = -m^2u \\
+  \frac{\partial^2 u}{\partial x \partial z} = -kmu, \quad \frac{\partial^4 u}{\partial x^2 \partial t^2} = m^2\omega^2 u
+\end{equation*}
+
+Input these to isolate for $\omega^2$.
+
+\begin{gather*}
+  m^2\omega^2 + f(f + \zeta)(-m^2) - 2M^2(-km) + N^2(-k^2) = 0 \\
+  m^2\omega^2 = f(f + \zeta)m^2 - 2M^2km + N^2k^2 \\
+  \omega^2 = f(f + \zeta) + \frac{1}{m^2} \left(N^2k^2 - 2M^2km\right)
+\end{gather*}
 
 
 \section{Simulation}
