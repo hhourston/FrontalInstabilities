@@ -12,6 +12,8 @@ f = 1e-4
 # Shear
 S = f
 # Richardson number
+# a ? b : c
+# "if a, evaluate b, otherwise evaluate c"
 Ri = length(ARGS) == 0 ? 0.5 : parse(Float64, ARGS[1])
 print("Using Ri=", Ri)
 # Stratification
