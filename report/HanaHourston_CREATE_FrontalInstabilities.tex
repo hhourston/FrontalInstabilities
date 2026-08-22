@@ -27,8 +27,8 @@ Show that, for a fluid with $\frac{\text{D}\vec{u}}{\text{D}t} = 0$, the thermal
   f\frac{\partial u}{\partial z} = -\frac{\partial b}{\partial y}, \quad f\frac{\partial v}{\partial z} = \frac{\partial b}{\partial x}
 \end{equation}
 
-\textbf{Solution:} \\
-Start from the Boussinesq equation,
+\subsubsection*{Solution:}
+Start from the Boussinesq momentum equation,
 \begin{align}
   \label{eq:boussinesq}
   f \hat{z} \times \vec{u} &= -\nabla \phi + b\hat{z}
@@ -75,9 +75,9 @@ Verify that the fields below are indeed in thermal wind balance.
 \begin{align} 
   b_0 &= N^2z + M^2 x  \label{eq:ideal-front-b} \\
   v_0 &= \zeta x +Sz = \zeta x + \frac{M^2}{f} z \label{eq:ideal-front-v} 
-\end{align} \\
+\end{align}
 
-\textbf{Solution:} \\
+\subsubsection*{Solution:}
 From \ref{eq:ideal-front-b},
 
 \begin{align*}
@@ -115,11 +115,11 @@ Flow around an ideal front, with forcing terms, is described by the equations
   \nabla \cdot \vec u = 0  \label{eq:continuity}
 \end{align}
 
-... we now turn to motions that evolve on time scales much longer than $N^{-1}$. \\
+... we now turn to motions that evolve on time scales much longer than $N^{-1}$.
 
-\textbf{A.} Using the equation for $\text{D}w/\text{D}t$, show that, under the condition highlighted above, one can neglect the vertical acceleration of perburbations. What is this approximation called? \\
+\subsubsection*{A.} Using the equation for $\text{D}w/\text{D}t$, show that, under the condition highlighted above, one can neglect the vertical acceleration of perburbations. What is this approximation called? \\
 
-\textbf{Solution:} \\
+\subsubsection*{Solution:}
 In this module, we assume that there are no non-conservative sources of heat, so buoyancy is conserved: $\text{D}b/\text{D}t = 0$.
 
 Then equation \ref{eq:ideal-b} becomes,
@@ -142,7 +142,7 @@ The $\hat{z}$ component of equation \ref{eq:ideal-u} is
 This approximation is the hydrostatic approximation. \\
 
 
-\textbf{B.} Using this approximation, show that equation set $`(2.2)`$ may be written, keeping only linear terms and ignoring $y$ variation, as
+\subsubsection*{B.} Using this approximation, show that equation set $`(2.2)`$ may be written, keeping only linear terms and ignoring $y$ variation, as
 
 \begin{equation}
 \frac{\partial u}{\partial t} - fv = -\frac{\partial \phi}{\partial x}, \quad \frac{\partial v}{\partial t} + fu = -\zeta u-\frac{M^2}{f}w \\
@@ -151,26 +151,25 @@ This approximation is the hydrostatic approximation. \\
 
 with ${\partial \phi}/{\partial z} = b$ and $\nabla \cdot \vec u = 0$. \\
 
-\textbf{Solution:} \\
-The $\hat{x}$ and $\hat{y}$ components of equation \ref{eq:ideal-u} are
+\subsubsection*{Solution:}
+Equation set `(2.2)` corresponds to equations \ref{eq:ideal-u}-\ref{continuity} in this report. The $\hat{x}$ and $\hat{y}$ components of equation \ref{eq:ideal-u} are
 
 \begin{align*}
-  \hat{x}: \text{D}u/\text{D}t + (-fv) = -\frac{\partial \phi}{\partial x} \\
-  \hat{y}: \text{D}v/\text{D}t + (fu) &= -\frac{\partial \phi}{\partial y} - \left( \zeta u + \frac{M^2}{f} w \right)
+  \hat{x}&: \text{D}u/\text{D}t + (-fv) = -\frac{\partial \phi}{\partial x} \\
+  \hat{y}&: \text{D}v/\text{D}t + (fu) = -\frac{\partial \phi}{\partial y} - \left( \zeta u + \frac{M^2}{f} w \right)
 \end{align*}
 
 Keeping only linear terms means that $\text{D}/\text{D}t \rightarrow \partial/\partial t$. Ignoring $y$ variation means that $\partial \phi/\partial y = 0$. It follows that, 
 
 \begin{align}
-  \hat{x}: \partial u/\partial t + (-fv) = -\frac{\partial \phi}{\partial x}  \label{eq:u-instable} \\
-  \hat{y}: \partial v/\partial t + (fu) &= - \left( \zeta u + \frac{M^2}{f} w \right)  \label{eq:v-instable} \\
+  \partial u/\partial t + (-fv) &= -\frac{\partial \phi}{\partial x}  \label{eq:u-instable} \\
+  \partial v/\partial t + (fu) &= - \left( \zeta u + \frac{M^2}{f} w \right)  \label{eq:v-instable} \\
   \frac{\partial b}{\partial t} &= -M^2 u - N^2 w  \label{eq:b-instable}
 \end{align}
 
 as required. \\
 
-
-\textbf{C.} Show that a plane-wave mode $(u, v, w, b) = (\tilde u, \tilde v, \tilde w, \tilde b)\exp[\text i(kx + mz - \omega t)]$ evolving in an infinitely long domain follows the dispersion relationship
+\subsubsection*{C.} Show that a plane-wave mode $(u, v, w, b) = (\tilde u, \tilde v, \tilde w, \tilde b)\exp[\text i(kx + mz - \omega t)]$ evolving in an infinitely long domain follows the dispersion relationship
 
 \begin{equation}
   \omega^2 = f(f + \zeta) + \frac{1}{m^2}\left (N^2k^2 - 2M^2km\right ) \qquad
@@ -178,7 +177,7 @@ as required. \\
 
 Hint: construct a differential equation for $u$ only, then use the plane wave assumption. \\
 
-\textbf{Solution:} \\
+\subsubsection*{Solution:}
 The starting equations are,
 \begin{align}
   \frac{\partial u}{\partial t} - fv &= -\frac{\partial \phi}{\partial x} \label{eq:a} \\
@@ -244,11 +243,205 @@ Input these to isolate for $\omega^2$.
 
 \section{Simulation}
 
+\subsection{Exercise}
+Add a 2D grid to `simulation.jl` using the parameters `L`, `H`, `Nx` and `Nz` in the script. The grid should be periodic in the $x$ direction and bounded, at the top and bottom, in the $z$ direction.
+
+\subsubsection*{Solution:}
+\begin{lstlisting}
+  grid = RectilinearGrid(CPU();
+      topology=(Periodic, Flat, Bounded),
+      size=(Nx, Nz),
+      x=(0, L),
+      z=(0, H)
+  )
+\end{lstlisting}
+
+
+\subsection{Exercise}
+Define the continuous forcing functions `v\_forcing\_func(...)` and `b\_forcing\_func(...)`, with arguments to be determined, according to the forcing terms due to the background flow present in equations $(2.2a,b)$ for the case $\zeta = 0$.
+
+\subsubsection*{Solution:}
+Equations `(2.2a,b)` correspond to equations \ref{eq:ideal-u}-\ref{ideal-b} in this report.
+
+\begin{lstlisting}
+  M_2 = f * S  # Inferred from bottom of slide deck 2
+  @inline v_forcing_func(x, z, t, u, w, p) = -p.M_2/p.f * w 
+  @inline b_forcing_func(x, z, t, u, w, p) = -p.N_2 * w - p.M_2 * u
+
+  v_forcing = Forcing(
+      v_forcing_func, 
+      parameters=(M_2=M_2, f=f),
+      field_dependencies=(:u, :w)
+  )
+  b_forcing = Forcing(
+      b_forcing_func, 
+      parameters=(M_2=M_2, N_2=N_2),
+      field_dependencies=(:u, :w)
+  )
+\end{lstlisting}
+
+
+\subsection{Exercise}
+Create a function `c\_0(x, z)` with your desired initial conditions of the tracer $c$. This can be anything you want, but the simplest non-trivial example is a linear profile, the example we use later has 0 at the surface and 1 at the bottom.
+
+
+\subsubsection*{Solution:}
+\begin{lstlisting}
+  @inline c_0(x, z) = z   # linear profile
+\end{lstlisting}
+
+
+\subsection{Exercise}
+Add an abstract operation $`N^2_{tot}`$ to the output that computes the total buoyancy gradient $`{N^2 + \partial b / \partial z}`$.
+
+
+\subsubsection{Solution:}
+The $\partial$ symbol does not render in lstlisting Latex environments, which is why `partial` shows up in the code chunk below.
+
+\begin{lstlisting}
+  N2_tot = Field(partial z(b) + N2)
+\end{lstlisting}
+
 
 \section{Visualization}
 
+\subsection{Exercise}
+Add a heatmap of the passive tracer $c$ to `visualization.jl` at grid location `fig[3, 1]` and a colorbar at `fig[3, 2]`.
+**Hint** Copy and modify the existing code for `ax\_u` etc.
+
+
+\subsubsection*{Solution:}
+\begin{lstlisting}
+  # Read simulation data
+  fds = FieldDataset(filename; backend=OnDisk())
+  c_fts = fds.c 
+
+  # Prepare coordinates
+  x_c = xnodes(c_fts)
+  z_c = znodes(c_fts)
+
+  # Data to plot
+  c = interior(c_fts[n], :, 1, :)
+\end{lstlisting}
+
+\begin{lstlisting}
+  # Exercise 1: plot of the passive tracer
+  ax_c = Axis(fig[3, 1]; 
+    title = L"c",
+    xlabel = L"x / \text{m}",
+    ylabel = L"z / \text{m}",
+    limits = (0, L, 0, H),
+    yreversed=true
+  )
+
+  ht_c = heatmap!(ax_c, x_c, z_c, c;
+    colormap = :deep  # ,
+    # colorrange = (0, 1)
+  )
+\end{lstlisting}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\textwidth]{/home/hana/Documents/dalhousie/training/CREATE/FrontalInstabilities/src/exercise4-1.png}
+  \caption{Last time stamp of simulation. Upper panel shows velocity and lower panel shows the tracer. Buoyancy contours are plotted in black.}
+  \label{fig:simulation}
+\end{figure}
+
+The velocity and tracer fields at the end of the simulation are plotted in Figure \ref{fig:simulation}. The animation showed that the state is fairly steady until about t=130hr, with linear, parallel buoyancy contours and a uniform passive tracer gradient with respect to depth. At that point, the instability growth becomes visible.
+
+
+\subsection{Exercise}
+Modify the `visualization.jl` to make an animation `Ri05.mp4`
+Note that `\@lift` must go at the start of the `let` block for `time\_string`:
+\begin{lstlisting}
+  # Time in hours
+  time_string = @lift let 
+    t = u_fts.times[$n] / 3600
+    t_str = @sprintf "%.1f" t
+    L"t = %$t_str \, \text{hr}"
+  end
+\end{lstlisting}
+
+\subsubsection*{Solution:}
+\begin{lstlisting}
+  # Save figure object
+  N = length(u_fts.times)
+  record(fig, "../videos/Ri05-exercise_4-2.mp4", 1:N) do i
+      n[] = i 
+      print("$i / $N\r")
+  end
+\end{lstlisting}
+
 
 \section{Analysis}
+
+\subsection{Exercise}  % TODO
+Show that the balanced Richardson number, defined by
+
+$$\text{Ri}_b(t) = f^2\frac{\left \langle \frac{\partial b_\text{tot}}{\partial z}\right\rangle}{ \left\langle \frac{\partial b_\text{tot}}{\partial x}\right\rangle^2}.$$
+
+May be written, for the boundary conditions in our simulation, as
+
+$$\text{Ri}_b(t) = \frac{\langle N^2_\text{tot}(t)\rangle}{S^2}$$
+
+
+\subsubsection*{Solution:}
+We used
+\begin{equation*}
+  N_{tot}^2 = N^2 + \frac{\partial b}{\partial z}
+\end{equation*}
+as the balanced Richardson number in the simulation.
+
+
+\subsection{Exercise}
+Modify the simulation code to instead read an initial $\text{Ri}$ value and output filename from the command-line arguments using `ARGS`, then run simulations for $\text{Ri} = \{0.3, 0.7, 0.9\}$ in addition to the existing $\text{Ri}=0.5$ output.
+
+Smaller $\text{Ri}$ will take longer (why?). Using the same resolution, the $\text{Ri} = 0.3$ simulation took 20 minutes.
+
+
+\subsubsection*{Solution:}
+\begin{lstlisting}
+  # Richardson number
+  # a ? b : c
+  # "if a, evaluate b, otherwise evaluate c"
+  Ri = length(ARGS) == 0 ? 0.5 : parse(Float64, ARGS[1])
+\end{lstlisting}
+
+The Richardson number is a ratio of the fluid stratification to the vertical velocity shear. Since $\text{Ri}$ is inversely proportional to vertical velocity shear, then a smaller $\text{Ri}$ corresponds to a larger vertical velocity shear.
+
+In the previous section, we established a variable time step for the simulation following the Courant-Friedrichs-Lewy condition,
+\begin{equation*}
+  \text{CFL} = \frac{u \Delta t}{\Delta x} < 1
+\end{equation*}
+
+Capping the upper range of the CFL at 0.5 and using constant $\Delta x = L/N_x = 1000/512$, then $\Delta t$ depends inversely on $u$:
+\begin{equation*}
+  \Delta t < \frac{\Delta x}{2|u|}
+\end{equation*}
+
+This means that $\text{Ri}$ and $\Delta t$ are directly proportional to each other. A smaller $\text{Ri}$ leads to a smaller $\Delta t$, so there will be more time steps needed in the simulation run. If there are more time steps, then the model takes longer to run.
+
+
+\subsection{Exercise}
+Add an operation to `src/analysis.jl` to produce the balanced Richardson number `Rib` as defined in exercise 2. Run with the input `RiXX.jld2` as an argument to produce `RiXX-pp.jld2` for each simulation. The script should complete quickly.
+
+Running `post-processed.jl` should produce the following figure of the average kinetic energy, growth rate and bulk Richardson number.
+
+
+\subsubsection*{Solution:}
+\begin{lstlisting}
+  # Balanced Richardson number
+  Rib = Field(Average(N_2_tot / p.S^2))
+\end{lstlisting}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\textwidth]{/home/hana/Documents/dalhousie/training/CREATE/FrontalInstabilities/src/post-processed_jul22.png}
+  \caption{Average kinetic energy, growth rate, and bulk Richardson number over time for each simulation with a different Richardson number.}
+  \label{fig:Ri-b}
+\end{figure}
+
+The required fields are shown in Figure \ref{fig:Ri-b}. KE grows the most quickly with time for small $Ri$. Growth rate peaks the highest and earliest for small $Ri$, while growth rate is more sustained for larger $Ri$. All balanced $Ri$ exhibit oscillations over time, with oscillations being the most pronounced in the case of small $Ri$. 
 
 
 \end{document}
