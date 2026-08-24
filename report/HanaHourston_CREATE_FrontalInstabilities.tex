@@ -17,6 +17,8 @@
 
 \maketitle
 
+The repository for this module was forked into `https://github.com/hhourston/FrontalInstabilities`. The latex code for this report is stored in that fork.
+
 \section{Basics}
 
 \subsection{Exercise}
@@ -29,12 +31,11 @@ Show that, for a fluid with $\frac{\text{D}\vec{u}}{\text{D}t} = 0$, the thermal
 
 \subsubsection*{Solution:}
 Start from the Boussinesq momentum equation,
-\begin{align}
-  \label{eq:boussinesq}
+\begin{align*}
   f \hat{z} \times \vec{u} &= -\nabla \phi + b\hat{z}
-\end{align}
+\end{align*}
 
-Expand the cross-product in \ref{eq:boussinesq}.
+Expand the cross-product.
 
 \begin{align*}
   f \hat{z} \times \vec{u} &= (0-fv)\hat{x} - (0-fu)\hat{y} + (0-0)\hat{z} \\
@@ -44,7 +45,7 @@ Expand the cross-product in \ref{eq:boussinesq}.
 The components are then,
 \begin{align*}
   \hat{x}&: fv = \frac{\partial \phi}{\partial x} \\
-  \hat{y}&: fu = \frac{\partial \phi}{\partial y} \\
+  \hat{y}&: fu = -\frac{\partial \phi}{\partial y} \\
   \hat{z}&: 0 = -\frac{\partial \phi}{\partial z} + b
 \end{align*}
 
@@ -90,7 +91,7 @@ From \ref{eq:ideal-front-v},
 \begin{align*}
   \frac{\partial}{\partial z} v_0 &= \frac{\partial}{\partial z}\left( \zeta x + \frac{M^2}{f}z \right) \\
   \frac{\partial v_0}{\partial z} &= \frac{M^2}{f} \\
-  f\frac{\partial v_0}{\partial z} &= M^2 = \frac{\partial b_0}{\partial x} &= M^2
+  f\frac{\partial v_0}{\partial z} &= M^2 = \frac{\partial b_0}{\partial x}
 \end{align*}
 
 as required. \\
@@ -218,27 +219,27 @@ Since we are ignoring $y$ variation, equation \ref{eq:e} becomes
 
 This can be substituted into equation \ref{eq:star3} after taking $\partial/\partial z$.
 
-\begin{align*}
-  \frac{\partial^4 u}{\partial z^2 \partial t^2} + f(f + \zeta) \frac{\partial^2 u}{\partial z^2} + M^2\frac{\partial^2 w}{\partial z^2} &= M^2 \frac{\partial^2 u}{\partial x \partial z} + N^2 \frac{\partial^2 w}{\partial x \partial z} \\
-  \frac{\partial^4 u}{\partial z^2 \partial t^2} + f(f + \zeta) \frac{\partial^2 u}{\partial z^2} - M^2\frac{\partial^2 u}{\partial x \partial z} &= M^2 \frac{\partial^2 u}{\partial x \partial z} - N^2 \frac{\partial^2 u}{\partial x^2} \\
-  \frac{\partial^4 u}{\partial z^2 \partial t^2} + f(f + \zeta) \frac{\partial^2 u}{\partial z^2} - 2M^2\frac{\partial^2 u}{\partial x \partial z} + N^2 \frac{\partial^2 u}{\partial x^2} = 0
-\end{align*}
+\begin{align}
+  \frac{\partial^4 u}{\partial z^2 \partial t^2} + f(f + \zeta) \frac{\partial^2 u}{\partial z^2} + M^2\frac{\partial^2 w}{\partial z^2} &= M^2 \frac{\partial^2 u}{\partial x \partial z} + N^2 \frac{\partial^2 w}{\partial x \partial z} \nonumber \\
+  \frac{\partial^4 u}{\partial z^2 \partial t^2} + f(f + \zeta) \frac{\partial^2 u}{\partial z^2} - M^2\frac{\partial^2 u}{\partial x \partial z} &= M^2 \frac{\partial^2 u}{\partial x \partial z} - N^2 \frac{\partial^2 u}{\partial x^2} \nonumber \\
+  \frac{\partial^4 u}{\partial z^2 \partial t^2} + f(f + \zeta) \frac{\partial^2 u}{\partial z^2} - 2M^2\frac{\partial^2 u}{\partial x \partial z} + N^2 \frac{\partial^2 u}{\partial x^2} &= 0  \label{eq:last}
+\end{align}
 
 To find the dispersion relation, assume a solution of the form, $u=\tilde{u}\text{exp}[i(kx + mz - \omega t)]$. Then,
 
 \begin{equation*}
-  \frac{\partial u}{\partial x} = iku, \quad \frac{\partial^2 u}{\partial x^2} = -k^2u \\
-  \frac{\partial u}{\partial z} = imu, \quad \frac{\partial^2 u}{\partial z^2} = -m^2u \\
+  \frac{\partial u}{\partial x} = iku, \quad \frac{\partial^2 u}{\partial x^2} = -k^2u, \quad
+  \frac{\partial u}{\partial z} = imu, \quad \frac{\partial^2 u}{\partial z^2} = -m^2u, \quad
   \frac{\partial^2 u}{\partial x \partial z} = -kmu, \quad \frac{\partial^4 u}{\partial x^2 \partial t^2} = m^2\omega^2 u
 \end{equation*}
 
-Input these to isolate for $\omega^2$.
+Input these into equation \ref{eq:last} to isolate for $\omega^2$.
 
-\begin{gather*}
-  m^2\omega^2 + f(f + \zeta)(-m^2) - 2M^2(-km) + N^2(-k^2) = 0 \\
-  m^2\omega^2 = f(f + \zeta)m^2 - 2M^2km + N^2k^2 \\
-  \omega^2 = f(f + \zeta) + \frac{1}{m^2} \left(N^2k^2 - 2M^2km\right)
-\end{gather*}
+\begin{align*}
+  &m^2\omega^2 + f(f + \zeta)(-m^2) - 2M^2(-km) + N^2(-k^2) = 0 \\
+  &m^2\omega^2 = f(f + \zeta)m^2 - 2M^2km + N^2k^2 \\
+  &\omega^2 = f(f + \zeta) + \frac{1}{m^2} \left(N^2k^2 - 2M^2km\right)
+\end{align*}
 
 
 \section{Simulation}
@@ -375,7 +376,7 @@ Note that `\@lift` must go at the start of the `let` block for `time\_string`:
 
 \section{Analysis}
 
-\subsection{Exercise}  % TODO
+\subsection{Exercise}
 Show that the balanced Richardson number, defined by
 
 $$\text{Ri}_b(t) = f^2\frac{\left \langle \frac{\partial b_\text{tot}}{\partial z}\right\rangle}{ \left\langle \frac{\partial b_\text{tot}}{\partial x}\right\rangle^2}.$$
@@ -385,12 +386,17 @@ May be written, for the boundary conditions in our simulation, as
 $$\text{Ri}_b(t) = \frac{\langle N^2_\text{tot}(t)\rangle}{S^2}$$
 
 
-\subsubsection*{Solution:}
+\subsubsection*{Solution:}  %TODO
 We used
 \begin{equation*}
   N_{tot}^2 = N^2 + \frac{\partial b}{\partial z}
 \end{equation*}
-as the balanced Richardson number in the simulation.
+as the balanced Richardson number in the simulation. We also used $S=f$. It follows that,
+\begin{align*}
+  \text{Ri}_b(t) &= f^2\frac{\left \langle \frac{\partial b_\text{tot}}{\partial z}\right\rangle}{ \left\langle \frac{\partial b_\text{tot}}{\partial x}\right\rangle^2} \\
+          &= S^2 \frac{\left \langle N_{tot}^2 - N^2 \right\rangle}{ \left\langle \frac{\partial b_\text{tot}}{\partial x}\right\rangle^2}
+\end{align*}
+This is as far as I was able to get.
 
 
 \subsection{Exercise}
@@ -441,7 +447,7 @@ Running `post-processed.jl` should produce the following figure of the average k
   \label{fig:Ri-b}
 \end{figure}
 
-The required fields are shown in Figure \ref{fig:Ri-b}. KE grows the most quickly with time for small $Ri$. Growth rate peaks the highest and earliest for small $Ri$, while growth rate is more sustained for larger $Ri$. All balanced $Ri$ exhibit oscillations over time, with oscillations being the most pronounced in the case of small $Ri$. 
+The required fields are shown in Figure \ref{fig:Ri-b}. KE grows the most quickly with time for small $Ri$. Growth rate peaks the highest and earliest for small $Ri$, while growth rate is more sustained for larger $Ri$. All balanced $Ri$ exhibit oscillations over time, and it has the earliest and largest increase for $\text{Ri}=0.3$. 
 
 
 \end{document}
