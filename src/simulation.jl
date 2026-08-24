@@ -103,7 +103,7 @@ simulation.callbacks[:wizard] = Callback(wizard, IterationInterval(10))
 u, v, w = model.velocities
 b, c = model.tracers
 
-# Exercise 3.4?
+# Exercise 3.4
 # Derived fields
 # Total buoyancy gradient
 N²_tot = Field(∂z(b) + N²)
